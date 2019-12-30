@@ -32,7 +32,7 @@ public class UserLoginServlet extends HttpServlet {
 			User user = userService.login(username, password);
 			if(user != null){
 				request.setAttribute("data",ResponseResult.ok());
-				request.getRequestDispatcher("/WEB-INF/page/main.jsp").forward(request, response);
+				request.getRequestDispatcher("/page/main.jsp").forward(request, response);
 			}else {
 				request.setAttribute("data",ResponseResult.build(CodeMessage.USERNAME_PASSWORD_ERROR));
 				request.getRequestDispatcher("index.jsp").forward(request, response);

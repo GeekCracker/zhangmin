@@ -75,7 +75,7 @@ public class JDBCUtils {
 					map.put(resultSetMetaData.getColumnName(i), resultSet.getObject(i));
 				}
 				list.add(map);
-			}			
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
