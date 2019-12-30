@@ -1,0 +1,103 @@
+#logo{
+	width:140px;
+	height:50px;
+	margin-bottom: 10px;
+	/*border:1px solid red;*/
+	display: inline-block;
+	margin-top:-12px;
+	margin-left:-10px;
+	float:left;
+}
+#logo_a{
+	width:150px;
+	height:55px;
+	display: inline-block;
+	/*border:1px solid blue;*/
+}
+.padding-0{
+	padding:0;
+}
+.margin-top-20{
+	margin-top:20px;
+}
+.margin-top-10{
+	margin-top:10px;
+}
+.margin-bottom-5{
+	margin-bottom: 5px;
+}
+.margin-right-0{
+	margin-right:0px;
+}
+.margin-left-0{
+	margin-left:0;
+}
+.margin-left-5{
+	margin-left:5px;
+}
+.margin-right-5{
+	margin-right:5px;
+}
+.height-30{
+	height:60px;
+}
+.height-25{
+	height:25px;
+}
+.width-100{
+	width:100px;
+}
+.width-percent-99{
+	width:99%;
+}
+.float-right{
+	float:right;
+}
+[v-cloak] {
+   display: none;
+}
+a{
+	cursor: pointer;
+}
+.combobox-item{
+	cursor: pointer;
+}
+tbody td,tbody th{
+	vertical-align: middle !important;
+}
+.loading {
+    width: 160px;
+    height: 56px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    line-height: 56px;
+    color: #fff;
+    padding-left: 60px;
+    font-size: 15px;
+    background: #000 url(/assets/img/loading.gif) no-repeat 10px 50%;
+    opacity: 0.7;
+    z-index: 9999;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=70);
+}
+
+.cycle{
+	width: 50px; 
+	height: 50px;      
+	border-radius: 50%;      
+	-moz-border-radius: 50%;      
+	-webkit-border-radius: 50%;
+}
+.background-red{
+	background-color: red;  
+}
+.background-green{
+	background-color: green;  
+}
+.background-ccc{
+	background-color: #ccc;  
+}
+
