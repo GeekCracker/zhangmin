@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet¹ıÂËÆ÷
  */
-@WebFilter("/ServletFilter")
+@WebFilter(urlPatterns="*")
 public class ServletFilter implements Filter {
 
 	public void destroy() {
