@@ -24,6 +24,12 @@ public interface UserService {
 	 * @param id 传入用户ID
 	 */
 	void deleteById(Long id);
+	
+	/**
+	 * 根据ID修改用户信息
+	 * @param user 传入需要修改的用户信息
+	 */
+	void updateById(User user);
 
 	
 	/**

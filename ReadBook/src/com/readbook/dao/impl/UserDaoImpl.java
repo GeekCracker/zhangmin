@@ -1,5 +1,6 @@
 package com.readbook.dao.impl;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +32,25 @@ public class UserDaoImpl implements UserDao{
 	public void deleteById(Long id) {
 		String sql = "delete from t_user where id = ?";
 		JDBCUtils.doUpdate(sql, id);
+	}
+
+	@Override
+	public void updateById(User user) {
+		String sql = "update t_user set id = ? ";
+		List<Object> args = new LinkedList<Object>();
+		args.add(user.getId());
+		String username = user.getUsername();
+		if(username != null && !"".equals(username)){
+			sql += ",username = ?";
+			args.add(username);
+		}
+		String phone = user.getPhone();
+		if(phone != null && !"".equals(phone)){
+			sql += ",phone = ?";
+		}
+		sql += " where id = ?";
+		args.add(user.getId());
+		JDBCUtils.doUpdate(sql, args.toArray());
 	}
 
 	@Override

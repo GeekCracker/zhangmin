@@ -31,6 +31,11 @@ public class UserServiceImpl implements UserService {
 	public void deleteById(Long id) {
 		userDao.deleteById(id);
 	}
+	
+	@Override
+	public void updateById(User user) {
+		userDao.updateById(user);
+	}
 
 	@Override
 	public UserPage queryPageData(UserPage page) {

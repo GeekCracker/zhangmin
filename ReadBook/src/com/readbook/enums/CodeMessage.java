@@ -5,6 +5,7 @@ public enum CodeMessage {
 	SUCCESS(200,"操作成功"),
 	
 	USERNAME_PASSWORD_ERROR(10001,"用户名或密码不正确"),
+	ID_BLANK(10002,"ID为空"),
 	
 	UNKNOWN(-1,"系统异常...");
 

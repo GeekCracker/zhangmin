@@ -26,6 +26,12 @@ public interface UserDao {
 	 */
 	void deleteById(Long id);
 	
+	/**
+	 * 根据ID修改用户
+	 * @param user 传入需要修改的用户
+	 */
+	void updateById(User user);
+	
 	
 	/**
 	 * 查询数据总数
