@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSONObject;
 import com.readbook.page.PermissionPage;
-import com.readbook.page.UserPage;
 import com.readbook.service.PermissionService;
 import com.readbook.service.impl.PermissionServiceImpl;
 
