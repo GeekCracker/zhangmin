@@ -2,7 +2,6 @@ package com.readbook.entity;
 
 /**
  * 用户实体类
- * 
  * @author 张敏
  */
 public class User {
@@ -15,6 +14,9 @@ public class User {
 
 	/** 用户密码 */
 	private String password;
+	
+	/** 用户联系方式 */
+	private String phone;
 
 	public Long getId() {
 		return id;
@@ -38,5 +40,13 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}	
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 }
