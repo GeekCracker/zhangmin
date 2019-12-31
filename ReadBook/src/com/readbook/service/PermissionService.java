@@ -1,5 +1,7 @@
 package com.readbook.service;
 
+import java.util.List;
+
 import com.readbook.entity.Permission;
 import com.readbook.page.PermissionPage;
 
@@ -29,4 +31,10 @@ public interface PermissionService {
 	 * @return 返回分页数据
 	 */
 	PermissionPage queryPageData(PermissionPage page);
+	
+	/**
+	 * 获取权限树
+	 * @return 返回权限树
+	 */
+	List<Permission> permissionTree();
 }

@@ -60,4 +60,11 @@ public class PermissionDaoImpl implements PermissionDao{
 		List<Map<String,Object>> results = JDBCUtils.doQuery(sql, objs);
 		return BeanUtil.populate(results, Permission.class);
 	}
+
+	@Override
+	public List<Permission> selectAll() {
+		String sql = "select id as id,permission_name as permissionName,parent_id as parentId from t_permission";	
+		List<Map<String,Object>> results = JDBCUtils.doQuery(sql);
+		return BeanUtil.populate(results, Permission.class);
+	}
 }

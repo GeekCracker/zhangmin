@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
 		page.setDatas(datas);
 		return page;
 	}
-	
+
 	private String selectFields(){
 		return "id,username,password,phone";
 	}

@@ -39,4 +39,10 @@ public interface PermissionDao {
 	 * @return 返回分页数据
 	 */
 	List<Permission> selectPageData(String sql,Object... objs);
+	
+	/**
+	 * 获取所有的权限
+	 * @return 返回所有的权限
+	 */
+	List<Permission> selectAll();
 }

@@ -2,6 +2,7 @@ package com.readbook.service.impl;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.readbook.dao.PermissionDao;
 import com.readbook.dao.impl.PermissionDaoImpl;
@@ -56,7 +57,33 @@ public class PermissionServiceImpl implements PermissionService{
 		return page;
 	}
 	
+	
+	@Override
+	public List<Permission> permissionTree() {
+		List<Permission> permissions = permissionDao.selectAll();
+		if(permissions != null){
+			List<Permission> topPermission = topPermission(permissions);
+			deep(topPermission,permissions);
+			return topPermission;
+		}
+		return new LinkedList<>();
+	}
+
+	private List<Permission> topPermission(List<Permission> permissions){
+		return permissions.stream().filter(item->item.getParentId() == null || item.getParentId() == 0).collect(Collectors.toList());
+	}
+	
+	private void deep(List<Permission> permissionTree,List<Permission> permissions){
+		for(Permission permission : permissionTree){
+			List<Permission> children = permissions.stream().filter(item-> permission.getId().equals(item.getParentId())).collect(Collectors.toList());
+			if(!children.isEmpty()){
+				deep(children,permissions);
+			}
+			permission.setChildren(children);
+		}
+	}
+	
 	private String selectFields(){
-		return "id,permission_name,parent_id";
+		return "id as id,permission_name as permissionName,parent_id as parentId";
 	}
 }
