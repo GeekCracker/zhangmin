@@ -38,8 +38,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserPage queryPageData(UserPage page) {
-		
+	public UserPage queryPageData(UserPage page) {		
 		//声明查询记录总数的sql
 		String totalSQL = "select count(*) as count from t_user ";
 		//声明查询记录的sql
