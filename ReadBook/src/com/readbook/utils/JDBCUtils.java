@@ -100,8 +100,8 @@ public class JDBCUtils {
 			//获取预处理SQL对象
 			preparedStatement=connection.prepareStatement(sql);
 			//向sql语句中注入动态参数
-			for(int i = 1;i<objects.length;i++){
-				preparedStatement.setObject(i,objects[i-1]);
+			for(int i = 0;i<objects.length;i++){
+				preparedStatement.setObject(i+1,objects[i]);
 			}
 			//处理sql语句,返回受影响的行数
 			return preparedStatement.executeUpdate();

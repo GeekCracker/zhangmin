@@ -41,8 +41,13 @@ public class PermissionServiceImpl implements PermissionService{
 		List<Object> args = new LinkedList<Object>();
 		String permissionName = page.getPermissionName();
 		if(permissionName != null && !"".equals(permissionName.trim())){
-			whereSQL.append(" and permission_name = ? ");
-			args.add(permissionName);
+			whereSQL.append(" and permission_name like ? ");
+			args.add(permissionName + "%");
+		}
+		String permissionBit = page.getPermissionBit();
+		if(permissionBit != null && !"".equals(permissionBit)){
+			whereSQL.append(" and permission_bit like ? ");
+			args.add(permissionBit + "%");
 		}
 		Long parentId = page.getParentId();
 		if(parentId != null && parentId > 0){
