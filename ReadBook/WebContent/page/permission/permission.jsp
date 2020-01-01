@@ -203,23 +203,27 @@
 		    					url:$('#formUrl').val(),
 		    					parentId:parentId
 		    			  }
-		    			  doPost(url,data,true);
 		    			  if(edit){
 		    				  data.id = obj.data.id;
 		    				  obj.update(data);
 		    			  }
+		    			  doPost(url,data,true,function(){
+		    				  $('#formPermissionName').val('');
+					    	  $('#formPermissionBit').val('');
+					    	  $('#formUrl').val('');
+			    			  $('#info').addClass("layui-hide");
+		    			  });
 		    			  if(func){
 		    				  func();
 		    			  }
-		    			  $('#formPermissionName').val('');
-				    	  $('#formPermissionBit').val('');
-				    	  $('#formUrl').val('');
-		    			  $('#info').addClass("layui-hide");
 		    			  layer.close(index);
 		    		  },
 		    		  btn2:function(index){
 		    			  $('#info').addClass("layui-hide");
 		    			  layer.close(index);
+		    		  },
+		    		  cancel:function(index){
+		    			  $('#info').addClass("layui-hide");
 		    		  }
 		    		});
 	  		  	}

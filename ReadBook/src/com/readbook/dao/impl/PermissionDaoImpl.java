@@ -13,8 +13,8 @@ public class PermissionDaoImpl implements PermissionDao{
 
 	@Override
 	public void save(Permission permission) {
-		String sql = "insert into t_permission(permission_name,parent_id) value (?,?)";
-		JDBCUtils.doUpdate(sql,permission.getPermissionName(),permission.getParentId());
+		String sql = "insert into t_permission(permission_name,permission_bit,url,parent_id) value (?,?,?,?)";
+		JDBCUtils.doUpdate(sql,permission.getPermissionName(),permission.getPermissionBit(),permission.getUrl(),permission.getParentId());
 	}
 
 	@Override
@@ -32,6 +32,16 @@ public class PermissionDaoImpl implements PermissionDao{
 		if(permissionName != null && !"".equals(permissionName)){
 			sql += ",permission_name = ?";
 			args.add(permissionName);
+		}
+		String permissionBit = permission.getPermissionBit();
+		if(permissionBit != null && !"".equals(permissionBit)){
+			sql += ",permission_bit = ?";
+			args.add(permissionBit);
+		}
+		String url = permission.getUrl();
+		if(url != null && !"".equals(url)){
+			sql += ",url = ?";
+			args.add(url);
 		}
 		Long parentId = permission.getParentId();
 		if(parentId != null && parentId > 0){
@@ -63,7 +73,7 @@ public class PermissionDaoImpl implements PermissionDao{
 
 	@Override
 	public List<Permission> selectAll() {
-		String sql = "select id as id,permission_name as permissionName,parent_id as parentId from t_permission";	
+		String sql = "select id as id,permission_name as permissionName,permission_bit as permissionBit,url as url,parent_id as parentId from t_permission";	
 		List<Map<String,Object>> results = JDBCUtils.doQuery(sql);
 		return BeanUtil.populate(results, Permission.class);
 	}

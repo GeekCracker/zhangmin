@@ -90,6 +90,6 @@ public class PermissionServiceImpl implements PermissionService{
 	}
 	
 	private String selectFields(){
-		return "id as id,permission_name as permissionName,parent_id as parentId";
+		return "id as id,permission_name as permissionName,permission_bit as permissionBit,url as url,parent_id as parentId";
 	}
 }

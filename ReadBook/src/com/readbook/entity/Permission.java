@@ -14,6 +14,12 @@ public class Permission {
 	/**权限名称*/
 	private String permissionName;
 	
+	/**权限位*/
+	private String permissionBit;
+	
+	/**权限URL*/
+	private String url;
+	
 	/**父级ID*/
 	private Long parentId;
 
@@ -34,6 +40,22 @@ public class Permission {
 
 	public void setPermissionName(String permissionName) {
 		this.permissionName = permissionName;
+	}
+
+	public String getPermissionBit() {
+		return permissionBit;
+	}
+
+	public void setPermissionBit(String permissionBit) {
+		this.permissionBit = permissionBit;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public Long getParentId() {

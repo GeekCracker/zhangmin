@@ -26,6 +26,8 @@ public class PermissionEditServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
 		String permissionName = request.getParameter("permissionName");
+		String permissionBit = request.getParameter("permissionBit");
+		String url = request.getParameter("url");
 		String parentId = request.getParameter("parentId");
 		if(id == null || "".equals(id)){
 			response.getWriter().write(JSONObject.toJSONString(ResponseResult.build(CodeMessage.ID_BLANK)));
@@ -33,6 +35,8 @@ public class PermissionEditServlet extends HttpServlet {
 		Permission permission = new Permission();
 		permission.setId(Long.valueOf(id));
 		permission.setPermissionName(permissionName);
+		permission.setPermissionBit(permissionBit);
+		permission.setUrl(url);
 		if(parentId != null && !"".equals(parentId)){
 			permission.setParentId(Long.valueOf(parentId));	
 		}
