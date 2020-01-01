@@ -22,14 +22,14 @@ public class UserListServlet extends HttpServlet {
 	private UserService userService = new UserServiceImpl();
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String current = request.getParameter("current");
-		String size = request.getParameter("size");
+		String current = request.getParameter("page");
+		String limit = request.getParameter("limit");
 		UserPage page = new UserPage();
 		if(current != null && !"".equals(current)){
 			page.setCurrent(Long.parseLong(current));
 		}
-		if(size != null && !"".equals(size)){
-			page.setSize(Long.parseLong(size));
+		if(limit != null && !"".equals(limit)){
+			page.setLimit(Long.parseLong(limit));
 		}
 		//通过JSON转换工具，将Java对象转换为JSON字符串
 		String jsonString = JSONObject.toJSONStringWithDateFormat(userService.queryPageData(page), "yyyy-MM-dd HH:mm:ss");

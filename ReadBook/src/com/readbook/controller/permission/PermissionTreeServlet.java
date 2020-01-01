@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSONObject;
+import com.readbook.response.ResponseResult;
 import com.readbook.service.PermissionService;
 import com.readbook.service.impl.PermissionServiceImpl;
 
@@ -22,6 +23,6 @@ public class PermissionTreeServlet extends HttpServlet {
 	private PermissionService permissionService = new PermissionServiceImpl();
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().write(JSONObject.toJSONString(permissionService.permissionTree()));
+		response.getWriter().write(JSONObject.toJSONString( ResponseResult.ok(permissionService.permissionTree())));
 	}
 }

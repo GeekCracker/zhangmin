@@ -22,14 +22,22 @@ public class PermissionListServlet extends HttpServlet {
 	private PermissionService permissionService = new PermissionServiceImpl();
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String current = request.getParameter("current");
-		String size = request.getParameter("size");
+		String current = request.getParameter("page");
+		String limit = request.getParameter("limit");
+		String permissionName = request.getParameter("permissionName");
+		String permissionBit = request.getParameter("permissionBit");
+		String parentId = request.getParameter("parentId");
 		PermissionPage page = new PermissionPage();
 		if(current != null && !"".equals(current)){
 			page.setCurrent(Long.parseLong(current));
 		}
-		if(size != null && !"".equals(size)){
-			page.setSize(Long.parseLong(size));
+		if(limit != null && !"".equals(limit)){
+			page.setLimit(Long.parseLong(limit));
+		}
+		page.setPermissionName(permissionName);
+		page.setPermissionBit(permissionBit);
+		if(parentId != null && !"".equals(parentId.trim())){
+			page.setParentId(Long.valueOf(parentId));
 		}
 		//通过JSON转换工具，将Java对象转换为JSON字符串
 		String jsonString = JSONObject.toJSONStringWithDateFormat(permissionService.queryPageData(page), "yyyy-MM-dd HH:mm:ss");

@@ -8,6 +8,8 @@ public class ResponseResult {
 	
 	private String msg;
 	
+	private Long count;
+	
 	private Object data;
 
 	
@@ -22,12 +24,23 @@ public class ResponseResult {
 		this.data = data;
 	}
 	
+	public ResponseResult(Integer code,String msg,Object data,Long count){
+		this.code = code;
+		this.msg = msg;
+		this.data = data;
+		this.count = count;
+	}
+	
 	public static ResponseResult ok(){
 		return new ResponseResult(CodeMessage.SUCCESS.getCode(),CodeMessage.SUCCESS.getMessage());
 	}
 	
 	public static ResponseResult ok(Object data){
 		return new ResponseResult(CodeMessage.SUCCESS.getCode(),CodeMessage.SUCCESS.getMessage(),data);
+	}
+	
+	public static ResponseResult ok(Object data,Long count){
+		return new ResponseResult(0,CodeMessage.SUCCESS.getMessage(),data,count);
 	}
 	
 	public static ResponseResult unkonwn(){
@@ -60,6 +73,14 @@ public class ResponseResult {
 
 	public void setMsg(String msg) {
 		this.msg = msg;
+	}
+
+	public Long getCount() {
+		return count;
+	}
+
+	public void setCount(Long count) {
+		this.count = count;
 	}
 
 	public Object getData() {

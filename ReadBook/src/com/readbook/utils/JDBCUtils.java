@@ -72,7 +72,7 @@ public class JDBCUtils {
 			while(resultSet.next()){
 				map = new HashMap<String,Object>();
 				for(int i = 1;i<=cols;i++){
-					map.put(resultSetMetaData.getColumnName(i), resultSet.getObject(i));
+					map.put(resultSetMetaData.getColumnLabel(i), resultSet.getObject(i));
 				}
 				list.add(map);
 			}

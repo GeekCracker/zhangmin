@@ -8,6 +8,7 @@ import com.readbook.dao.PermissionDao;
 import com.readbook.dao.impl.PermissionDaoImpl;
 import com.readbook.entity.Permission;
 import com.readbook.page.PermissionPage;
+import com.readbook.response.ResponseResult;
 import com.readbook.service.PermissionService;
 
 public class PermissionServiceImpl implements PermissionService{
@@ -30,7 +31,7 @@ public class PermissionServiceImpl implements PermissionService{
 	}
 
 	@Override
-	public PermissionPage queryPageData(PermissionPage page) {
+	public ResponseResult queryPageData(PermissionPage page) {
 		//声明查询记录总数的sql
 		String totalSQL = "select count(*) as count from t_permission ";
 		//声明查询记录的sql
@@ -48,13 +49,13 @@ public class PermissionServiceImpl implements PermissionService{
 			whereSQL.append(" and parent_id = ? ");
 			args.add(parentId);
 		}
+		//组装limit
+		String limit = " limit " + page.getStartIndex() + "," + page.getLimit();
 		//查询数据总数
-		Long total = permissionDao.selectTotal(totalSQL,args.toArray());
+		Long total = permissionDao.selectTotal(totalSQL + whereSQL.toString() ,args.toArray());
 		//查询数据记录
-		List<Permission> datas = permissionDao.selectPageData(selectSQL, args.toArray());
-		page.setTotal(total);
-		page.setDatas(datas);
-		return page;
+		List<Permission> datas = permissionDao.selectPageData(selectSQL + whereSQL.toString() + limit, args.toArray());
+		return ResponseResult.ok(datas, total);
 	}
 	
 	

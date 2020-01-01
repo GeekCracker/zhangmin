@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.readbook.entity.Permission;
 import com.readbook.page.PermissionPage;
+import com.readbook.response.ResponseResult;
 
 public interface PermissionService {
 
@@ -30,7 +31,7 @@ public interface PermissionService {
 	 * @param page 传入分页参数
 	 * @return 返回分页数据
 	 */
-	PermissionPage queryPageData(PermissionPage page);
+	ResponseResult queryPageData(PermissionPage page);
 	
 	/**
 	 * 获取权限树

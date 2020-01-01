@@ -12,24 +12,27 @@
 <body class="layui-layout-body">
 	<div class="layui-layout layui-layout-admin">
 		<div id="header" class="layui-header"></div>
-		<div id="left" class="layui-side layui-bg-black margin-"></div>
-		<div class="layui-body">1111</div>
+		<div id="left" class="layui-side layui-bg-black"></div>
+		<div class="layui-body">
+		
+			1111
+		
+		</div>
 		<div id="footer" class="layui-footer"></div>
 	</div>
 </body>
-<script type="text/javascript" src="assets/js/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="/assets/js/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="/layui/layui.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$("#header").load("../base/header.html");
-		$("#left").load("../base/left.html");
-		$("#footer").load("../base/footer.html");
+		$("#header").load("/base/header.html");
+		$("#left").load("/base/left.html");
+		$("#footer").load("/base/footer.html");
 		$("body").ready(function(){
 			layui.use('element', function() {
 				var element = layui.element;
 			});
 		})
 	});
-	
 </script>
 </html>

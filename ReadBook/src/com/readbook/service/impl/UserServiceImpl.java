@@ -57,10 +57,12 @@ public class UserServiceImpl implements UserService {
 			whereSQL.append(" and phone = ? ");
 			args.add(phone);
 		}
+		//组装limit
+		String limit = " limit " + page.getStartIndex() + "," + page.getLimit();
 		//查询数据总数
-		Long total = userDao.selectTotal(totalSQL,args.toArray());
+		Long total = userDao.selectTotal(totalSQL + whereSQL.toString(),args.toArray());
 		//查询数据记录
-		List<User> datas = userDao.selectPageData(selectSQL, args.toArray());
+		List<User> datas = userDao.selectPageData(selectSQL + whereSQL.toString() + limit, args.toArray());
 		page.setTotal(total);
 		page.setDatas(datas);
 		return page;

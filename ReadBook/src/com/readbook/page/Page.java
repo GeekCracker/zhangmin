@@ -8,16 +8,13 @@ public class Page<T> {
 	private long current=1;
 	
 	/**每页显示数据条数*/
-	private long size=20;
+	private long limit=20;
 	
 	/**查询记录总数*/
 	private long total;
 	
 	/**limit开始下标*/
 	private long startIndex;
-	
-	/**limit结束下标*/
-	private long endIndex;
 	
 	/**当前页数据*/
 	private List<T> datas;
@@ -33,15 +30,15 @@ public class Page<T> {
 		this.current = current;
 	}
 
-	public long getSize() {
-		if(size < 0){
-			size = 20;
+	public long getLimit() {
+		if(limit < 0){
+			limit = 20;
 		}
-		return size;
+		return limit;
 	}
 
-	public void setSize(long size) {
-		this.size = size;
+	public void setLimit(long limit) {
+		this.limit = limit;
 	}
 
 	public long getTotal() {
@@ -53,33 +50,22 @@ public class Page<T> {
 	}
 
 	public long getTotalPage() {
-		if(getTotal() % getSize() == 0L){
-			return getTotal() / getSize();
+		if(getTotal() % getLimit() == 0L){
+			return getTotal() / getLimit();
 		}else {
-			return getTotal() / getSize() + 1;
+			return getTotal() / getLimit() + 1;
 		}
 	}
 	
 	public long getStartIndex() {
-		if(getCurrent() > 0 && getSize() > 0){
-			return (getCurrent() - 1) * getSize();
+		if(getCurrent() > 0 && getLimit() > 0){
+			return (getCurrent() - 1) * getLimit();
 		}
 		return startIndex;
 	}
 
 	public void setStartIndex(long startIndex) {
 		this.startIndex = startIndex;
-	}
-
-	public long getEndIndex() {
-		if(getCurrent() > 0 && getSize() > 0){
-			return (getCurrent() * getSize()) - 1;
-		}
-		return endIndex;
-	}
-
-	public void setEndIndex(long endIndex) {
-		this.endIndex = endIndex;
 	}
 
 	public List<T> getDatas() {
