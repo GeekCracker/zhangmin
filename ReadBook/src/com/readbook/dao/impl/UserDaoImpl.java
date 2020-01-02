@@ -25,7 +25,8 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public void save(User user) {
 		String sql = "insert into t_user(username,password) value (?,?)";
-		JDBCUtils.doUpdate(sql, user.getUsername(),user.getPassword());
+		long id = JDBCUtils.doSave(sql, user.getUsername(),user.getPassword());
+		user.setId(id);
 	}
 
 	@Override

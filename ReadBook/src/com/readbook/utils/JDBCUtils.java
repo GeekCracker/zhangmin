@@ -112,6 +112,41 @@ public class JDBCUtils {
 		}
 		return 0;
 	}
+	
+	/**
+	 * 添加数据记录的方法
+	 * @param sql 传入一个sql语句
+	 * @param objects 传入一个含有动态参数的数据
+	 * @return 返回主键ID
+	 */
+	public static long doSave(String sql,Object...objects){
+		//声明一个数据库连接
+		Connection connection = null;
+		//声明一个处理sql语句方式的对象
+		PreparedStatement preparedStatement = null;
+		try {
+			//获取数据库连接
+			connection = getConnection();
+			//获取预处理SQL对象
+			preparedStatement=connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+			//向sql语句中注入动态参数
+			for(int i = 0;i<objects.length;i++){
+				preparedStatement.setObject(i+1,objects[i]);
+			}
+			//处理sql语句,返回受影响的行数
+			preparedStatement.executeUpdate();
+			ResultSet resultSet = preparedStatement.getGeneratedKeys();
+			if(resultSet.next()){
+				return resultSet.getLong(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			close(connection,preparedStatement,null);
+		}
+		return 0;
+	}
+	
 	/**
 	 * 关闭数据库的方法
 	 * @param connection 传入一个数据库连接

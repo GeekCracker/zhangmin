@@ -15,7 +15,7 @@
 		<div id="left" class="layui-side layui-bg-black"></div>
 		<div class="layui-body">
 		
-			1111
+			主页
 		
 		</div>
 		<div id="footer" class="layui-footer"></div>

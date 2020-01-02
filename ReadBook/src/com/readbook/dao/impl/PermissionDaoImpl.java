@@ -14,7 +14,8 @@ public class PermissionDaoImpl implements PermissionDao{
 	@Override
 	public void save(Permission permission) {
 		String sql = "insert into t_permission(permission_name,permission_bit,url,parent_id) value (?,?,?,?)";
-		JDBCUtils.doUpdate(sql,permission.getPermissionName(),permission.getPermissionBit(),permission.getUrl(),permission.getParentId());
+		long id = JDBCUtils.doSave(sql,permission.getPermissionName(),permission.getPermissionBit(),permission.getUrl(),permission.getParentId());
+		permission.setId(id);
 	}
 
 	@Override
