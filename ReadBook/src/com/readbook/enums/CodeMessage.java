@@ -1,5 +1,9 @@
 package com.readbook.enums;
 
+/**
+ * @author 张敏
+ *	操作信息
+ */
 public enum CodeMessage {
 
 	SUCCESS(200,"操作成功"),

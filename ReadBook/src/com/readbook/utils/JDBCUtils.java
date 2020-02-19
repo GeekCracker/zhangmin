@@ -17,7 +17,7 @@ public class JDBCUtils {
 	private static final String driver = "com.mysql.jdbc.Driver";
 	private static final String url="jdbc:mysql://111.231.111.161:3306/read_book?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=true";
 	private static final String username = "zhangsan";
-	private static final String password = "zhangsan666";
+	private static final String password = "121212";
 	
 	private static Connection getConnection(){
 		Connection connection = null;

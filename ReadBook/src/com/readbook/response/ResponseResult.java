@@ -2,14 +2,22 @@ package com.readbook.response;
 
 import com.readbook.enums.CodeMessage;
 
+/**
+ * @author 张敏
+ *	返回数据DTO（数据传输对象），用来组装返回的数据
+ */
 public class ResponseResult {
 
+	/**状态码*/
 	private Integer code;
 	
+	/**操作状态提示例如：操作成功、操作失败*/
 	private String msg;
 	
+	/**查询到的数据总数，在分页列表中会用到*/
 	private Long count;
 	
+	/**返回给前台页面的数据对象，可以是单条数据，也可以是列表数据*/
 	private Object data;
 
 	

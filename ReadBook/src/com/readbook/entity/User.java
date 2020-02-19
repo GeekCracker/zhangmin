@@ -17,6 +17,12 @@ public class User {
 	
 	/** 用户联系方式 */
 	private String phone;
+	
+	/**角色ID*/
+	private Long roleId;
+	
+	/** 用户角色 */
+	private Role  role;
 
 	public Long getId() {
 		return id;
@@ -48,5 +54,21 @@ public class User {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public Long getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 }

@@ -30,7 +30,8 @@ public class UserLoginServlet extends HttpServlet {
 		try{
 			User user = userService.login(username, password);
 			if(user != null){
-				request.setAttribute("data",ResponseResult.ok());
+				//如果用户不为空，表示根据用户名与密码可以查询到用户，即允许登陆
+				request.setAttribute("data",ResponseResult.ok(user));
 				request.getRequestDispatcher("/page/main.jsp").forward(request, response);
 			}else {
 				request.setAttribute("data",ResponseResult.build(CodeMessage.USERNAME_PASSWORD_ERROR));
