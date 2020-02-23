@@ -1,5 +1,7 @@
 package com.readbook.service;
 
+import java.util.List;
+
 import com.readbook.entity.Role;
 import com.readbook.page.RolePage;
 import com.readbook.response.ResponseResult;
@@ -24,6 +26,11 @@ public interface RoleService{
 	 */
 	void updateById(Role role);
 
+	/**
+	 * 获取所有的角色
+	 * @return 返回所有的角色
+	 */
+	List<Role> queryAll();
 	
 	/**
 	 * 获取分页数据

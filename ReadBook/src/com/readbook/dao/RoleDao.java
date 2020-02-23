@@ -34,6 +34,12 @@ public interface RoleDao {
 	Long selectTotal(String sql,Object... objs);
 	
 	/**
+	 * 获取所有的角色
+	 * @return 返回所有的角色
+	 */
+	List<Role> selectAll();
+	
+	/**
 	 * 查询分页数据
 	 * @param sql 传入sql语句
 	 * @param objs 传入查询条件

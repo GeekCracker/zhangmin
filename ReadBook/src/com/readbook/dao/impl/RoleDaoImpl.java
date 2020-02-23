@@ -58,6 +58,13 @@ public class RoleDaoImpl implements RoleDao{
 	}
 
 	@Override
+	public List<Role> selectAll() {
+		String sql = "select id,role_name as roleName from t_role";
+		List<Map<String,Object>> results = JDBCUtils.doQuery(sql);
+		return BeanUtil.populate(results, Role.class);
+	}
+
+	@Override
 	public List<Role> selectPageData(String sql, Object... objs) {
 		List<Map<String,Object>> results = JDBCUtils.doQuery(sql, objs);
 		return BeanUtil.populate(results, Role.class);

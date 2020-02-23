@@ -26,10 +26,11 @@ public class UserAddServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+		String phone = request.getParameter("phone");
 		User user = new User();
 		user.setUsername(username);
-		user.setPassword(password);
+		user.setPhone(phone);
+		user.setPassword("123456");//添加用户时默认初始密码
 		userService.save(user);
 		//通过response会写操作成功的信息
 		response.getWriter().write(JSONObject.toJSONString(ResponseResult.ok()));

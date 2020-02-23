@@ -7,6 +7,7 @@ import com.readbook.dao.UserDao;
 import com.readbook.dao.impl.UserDaoImpl;
 import com.readbook.entity.User;
 import com.readbook.page.UserPage;
+import com.readbook.response.ResponseResult;
 import com.readbook.service.UserService;
 
 /**
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserPage queryPageData(UserPage page) {		
+	public ResponseResult queryPageData(UserPage page) {		
 		//声明查询记录总数的sql
 		String totalSQL = "select count(*) as count from t_user ";
 		//声明查询记录的sql
@@ -63,9 +64,7 @@ public class UserServiceImpl implements UserService {
 		Long total = userDao.selectTotal(totalSQL + whereSQL.toString(),args.toArray());
 		//查询数据记录
 		List<User> datas = userDao.selectPageData(selectSQL + whereSQL.toString() + limit, args.toArray());
-		page.setTotal(total);
-		page.setDatas(datas);
-		return page;
+		return ResponseResult.ok(datas,total);
 	}
 
 	private String selectFields(){

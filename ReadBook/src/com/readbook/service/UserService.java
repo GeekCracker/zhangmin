@@ -2,6 +2,7 @@ package com.readbook.service;
 
 import com.readbook.entity.User;
 import com.readbook.page.UserPage;
+import com.readbook.response.ResponseResult;
 
 public interface UserService {
 
@@ -37,5 +38,5 @@ public interface UserService {
 	 * @param page 传入分页参数
 	 * @return 返回分页数据
 	 */
-	UserPage queryPageData(UserPage page);
+	ResponseResult queryPageData(UserPage page);
 }

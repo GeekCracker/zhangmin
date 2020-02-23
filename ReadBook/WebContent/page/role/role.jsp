@@ -49,7 +49,7 @@
 				<div class="layui-col-sm6">
 					<label class="layui-form-label layui-col-md5" style="width:120px;">角色名称：</label>
 					<div class="layui-input-inline layui-col-sm7">
-						<input type="text" id="formRoleName" name="roleName" id="abc" required lay-verify="required"
+						<input type="text" id="formRoleName" name="roleName" required lay-verify="required"
 							placeholder="请输入角色名称" autocomplete="off" class="layui-input">
 					</div>
 				</div>
@@ -89,7 +89,7 @@
 			layui.use('element', function() {
 				var element = layui.element;
 			});
-			var table,form,tree;
+			var $ = layui.$, active,table,form,tree;
 			layui.use(['table','form'], function() {
 				table = layui.table;
 				form=layui.form;

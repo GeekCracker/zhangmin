@@ -63,6 +63,11 @@ public class RoleServiceImpl implements RoleService{
 	}
 
 	@Override
+	public List<Role> queryAll() {
+		return roleDao.selectAll();
+	}
+
+	@Override
 	public ResponseResult queryPageData(RolePage page) {
 		//声明查询记录总数的sql
 		String totalSQL = "select count(*) as count from v_role ";

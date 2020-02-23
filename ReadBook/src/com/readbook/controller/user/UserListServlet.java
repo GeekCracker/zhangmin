@@ -24,12 +24,20 @@ public class UserListServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String current = request.getParameter("page");
 		String limit = request.getParameter("limit");
+		String username = request.getParameter("username");
+		String phone = request.getParameter("phone");
 		UserPage page = new UserPage();
 		if(current != null && !"".equals(current)){
 			page.setCurrent(Long.parseLong(current));
 		}
 		if(limit != null && !"".equals(limit)){
 			page.setLimit(Long.parseLong(limit));
+		}
+		if(username != null && !"".equals(username.trim())){
+			page.setUsername(username);
+		}
+		if(phone != null && !"".equals(phone.trim())){
+			page.setPhone(phone);
 		}
 		//通过JSON转换工具，将Java对象转换为JSON字符串
 		String jsonString = JSONObject.toJSONStringWithDateFormat(userService.queryPageData(page), "yyyy-MM-dd HH:mm:ss");
