@@ -27,10 +27,14 @@ public class UserAddServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String phone = request.getParameter("phone");
+		String roleId = request.getParameter("roleId");
 		User user = new User();
 		user.setUsername(username);
 		user.setPhone(phone);
 		user.setPassword("123456");//添加用户时默认初始密码
+		if(roleId != null && !"".equals(roleId.trim())){
+			user.setRoleId(Long.valueOf(roleId));
+		}		
 		userService.save(user);
 		//通过response会写操作成功的信息
 		response.getWriter().write(JSONObject.toJSONString(ResponseResult.ok()));

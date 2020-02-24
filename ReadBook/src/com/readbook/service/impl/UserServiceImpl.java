@@ -41,9 +41,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ResponseResult queryPageData(UserPage page) {		
 		//声明查询记录总数的sql
-		String totalSQL = "select count(*) as count from t_user ";
+		String totalSQL = "select count(*) as count from v_user ";
 		//声明查询记录的sql
-		String selectSQL = "select "+selectFields()+" from t_user ";
+		String selectSQL = "select "+selectFields()+" from v_user ";
 		
 		//组装where条件
 		StringBuilder whereSQL = new StringBuilder("where 1=1 ");
@@ -68,6 +68,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	private String selectFields(){
-		return "id,username,password,phone";
+		return "id,username,password,phone,role_id as roleId,role_name as roleName";
 	}
 }

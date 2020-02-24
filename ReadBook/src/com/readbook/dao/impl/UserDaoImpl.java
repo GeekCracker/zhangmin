@@ -24,8 +24,8 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public void save(User user) {
-		String sql = "insert into t_user(username,password,phone) value (?,?,?)";
-		long id = JDBCUtils.doSave(sql, user.getUsername(),user.getPassword(),user.getPhone());
+		String sql = "insert into t_user(username,password,phone,role_id) value (?,?,?,?)";
+		long id = JDBCUtils.doSave(sql, user.getUsername(),user.getPassword(),user.getPhone(),user.getRoleId());
 		user.setId(id);
 	}
 
@@ -49,6 +49,11 @@ public class UserDaoImpl implements UserDao{
 		if(phone != null && !"".equals(phone)){
 			sql += ",phone = ?";
 			args.add(phone);
+		}
+		Long roleId = user.getRoleId();
+		if(roleId != null){
+			sql += ",role_id = ?";
+			args.add(roleId);
 		}
 		sql += " where id = ?";
 		args.add(user.getId());

@@ -29,6 +29,7 @@ public class UserEditServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String phone = request.getParameter("phone");
+		String roleId = request.getParameter("roleId");
 		if(id == null || "".equals(id)){
 			response.getWriter().write(JSONObject.toJSONString(ResponseResult.build(CodeMessage.ID_BLANK)));
 		}
@@ -37,6 +38,9 @@ public class UserEditServlet extends HttpServlet {
 		user.setUsername(username);
 		user.setPassword(password);
 		user.setPhone(phone);
+		if(roleId != null && !"".equals(roleId.trim())){
+			user.setRoleId(Long.valueOf(roleId));
+		}
 		userService.updateById(user);
 		response.getWriter().write(JSONObject.toJSONString(ResponseResult.ok()));
 	}

@@ -21,6 +21,9 @@ public class User {
 	/**角色ID*/
 	private Long roleId;
 	
+	/**角色名称*/
+	private String roleName;
+	
 	/** 用户角色 */
 	private Role  role;
 
@@ -62,6 +65,14 @@ public class User {
 
 	public void setRoleId(Long roleId) {
 		this.roleId = roleId;
+	}
+
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
 
 	public Role getRole() {

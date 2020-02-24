@@ -75,7 +75,7 @@
 				<div class="layui-col-sm6">
 					<label class="layui-form-label layui-col-sm5" style="width:120px;">是否启用：</label>
 					<div class="layui-input-inline layui-col-sm7">
-						<select name="roleId" id="roleId">
+						<select name="roleId" id="formRoleId">
 						  <option value="">请选择角色</option>
 						</select>
 					</div>
@@ -127,6 +127,11 @@
 							width : 200,
 							title : '联系方式',
 							align : 'center'
+						},{
+							field : 'roleName',
+							width : 200,
+							title : '角色',
+							align : 'center'
 						}, {
 							fixed: 'right', 
 							title:'操作', 
@@ -148,7 +153,7 @@
 				      });
 				    } else if(obj.event === 'edit'){
 				    	save('/UserEditServlet',true,obj);
-				    	initRole(obj.roleId);
+				    	initRole(obj.data.roleId);
 				    }
 			  	});
 				
@@ -189,7 +194,8 @@
 		  		  		//表单赋值
 		  		  		form.val('userForm',{
 		  		  			"username":obj.data.username,
-		  		  			"phone":obj.data.phone
+		  		  			"phone":obj.data.phone,
+		  		  			"roleId":obj.data.roleId
 		  		  		})
 		  		  	}
 			    	layer.open({
@@ -201,17 +207,28 @@
 		    		  yes:function(index){
 		    			  var data = {
 		    					username:$('#formUsername').val(),
-		    					phone:$('#formPhone').val()
+		    					phone:$('#formPhone').val(),
+		    					roleId:$('#formRoleId').val()
 		    			  }
 		    			  if(edit){
 		    				  data.id = obj.data.id;
+ 		    				  //修改当前行的数据，避免重新刷新列表
+ 		    				  if(obj.data.roleName){
+ 		    					 obj.data.roleName = $('#formRoleId option:selected').text();
+ 		    				  }else {
+ 		    					 obj.data['roleName'] = $('#formRoleId option:selected').text();
+ 		    				  }
+ 		    				  //这里存在一个问题，暂时没有解决方案
+ 		    				  //问题描述：当用户角色为空时，修改用户角色，不能动态修改表格单元格的数据
+ 		    				  //				 需要重新刷新列表，但是如果用户有角色的话，修改用户角色会动态更新单元格数据
 		    				  obj.update(data);
 		    			  }
 		    			  doPost(url,data,true);
 		    			  $('#info').addClass("layui-hide");
 		    			  form.val('userForm',{
 			  		  			"username":'',
-			  		  			"phone":''
+			  		  			"phone":'',
+			  		  			"roleId":''
 		  		  		  })
 		    			  if(func){
 		    				  func();
@@ -221,7 +238,8 @@
 		    		  btn2:function(index){
 		    			  form.val('userForm',{
 			  		  			"username":'',
-			  		  			"phone":''
+			  		  			"phone":'',
+			  		  			"roleId":''
 		  		  		  })
 		    			  $('#info').addClass("layui-hide");
 		    			  layer.close(index);
@@ -229,12 +247,13 @@
 		    		  cancel:function(index){
 		    			  form.val('userForm',{
 			  		  			"username":'',
-			  		  			"phone":''
+			  		  			"phone":'',
+			  		  			"roleId":''
 		  		  		  })
 		    			  $('#info').addClass("layui-hide");
 		    		  }
 		    		});
-	  		  	}
+	  		  	}//end save function
 			  	/**
 			  	  * @param roleId是否为修改操作，如果传入角色ID说明是修改操作
 				  */
@@ -242,10 +261,10 @@
 			  		$.ajax({
 						url:'/RoleAllListServlet',
 						type:'GET',
+						async:false,
 						success:function(data){
 							var roles = [];
 							data = JSON.parse(data);
-							console.log(data);
 							if(data.code == 200){
 								roles = data.data;
 							}
@@ -253,11 +272,12 @@
 							for(var i in roles){
 								str += '<option value = "'+roles[i].id +'" '+(roleId && roleId == roles[i].id ? "selected" : "")+'>'+roles[i].roleName+'</option>';
 							}
-							console.log(str);
-							$("#userForm #roleId").append(str);
+							$("#userForm #formRoleId option:gt(0)").remove();
+							$("#userForm #formRoleId").append(str);
+							form.render('select');
 						}
 					});
-			  	}	
+			  	}	//end initRole function
 			});
 		});
 	});
