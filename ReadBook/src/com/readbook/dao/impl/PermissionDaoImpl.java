@@ -26,31 +26,31 @@ public class PermissionDaoImpl implements PermissionDao{
 
 	@Override
 	public void updateById(Permission permission) {
-		String sql = "update t_permission set id = ? ";
+		StringBuilder sql = new StringBuilder("update t_permission set id = ? ");
 		List<Object> args = new LinkedList<Object>();
 		args.add(permission.getId());
 		String permissionName = permission.getPermissionName();
 		if(permissionName != null && !"".equals(permissionName)){
-			sql += ",permission_name = ?";
+			sql.append(",permission_name = ?");
 			args.add(permissionName);
 		}
 		String permissionBit = permission.getPermissionBit();
 		if(permissionBit != null && !"".equals(permissionBit)){
-			sql += ",permission_bit = ?";
+			sql.append(",permission_bit = ?");
 			args.add(permissionBit);
 		}
 		String url = permission.getUrl();
 		if(url != null && !"".equals(url)){
-			sql += ",url = ?";
+			sql.append(",url = ?");
 			args.add(url);
 		}
 		Long parentId = permission.getParentId();
 		if(parentId != null && parentId > 0){
-			sql += ",parent_id = ?";
+			sql.append(",parent_id = ?");
 		}
-		sql += " where id = ?";
+		sql.append(" where id = ?");
 		args.add(permission.getId());
-		JDBCUtils.doUpdate(sql, args.toArray());
+		JDBCUtils.doUpdate(sql.toString(), args.toArray());
 	}
 
 	@Override

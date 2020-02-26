@@ -37,27 +37,27 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public void updateById(User user) {
-		String sql = "update t_user set id = ? ";
+		StringBuilder sql = new StringBuilder("update t_user set id = ? ");
 		List<Object> args = new LinkedList<Object>();
 		args.add(user.getId());
 		String username = user.getUsername();
 		if(username != null && !"".equals(username)){
-			sql += ",username = ?";
+			sql.append(",username = ?");
 			args.add(username);
 		}
 		String phone = user.getPhone();
 		if(phone != null && !"".equals(phone)){
-			sql += ",phone = ?";
+			sql.append(",phone = ?");
 			args.add(phone);
 		}
 		Long roleId = user.getRoleId();
 		if(roleId != null){
-			sql += ",role_id = ?";
+			sql.append(",role_id = ?");
 			args.add(roleId);
 		}
-		sql += " where id = ?";
+		sql.append(" where id = ?");
 		args.add(user.getId());
-		JDBCUtils.doUpdate(sql, args.toArray());
+		JDBCUtils.doUpdate(sql.toString(), args.toArray());
 	}
 
 	@Override

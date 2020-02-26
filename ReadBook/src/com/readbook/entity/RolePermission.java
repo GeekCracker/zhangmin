@@ -1,5 +1,9 @@
 package com.readbook.entity;
 
+/**
+ * 角色权限关联实体
+ * @author 张敏
+ */
 public class RolePermission {
 
 	/**主键ID*/

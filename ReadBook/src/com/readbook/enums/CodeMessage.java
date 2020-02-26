@@ -11,6 +11,8 @@ public enum CodeMessage {
 	USERNAME_PASSWORD_ERROR(10001,"用户名或密码不正确"),
 	ID_BLANK(10002,"ID为空"),
 	
+	SHOP_NAME_BLANK(20001,"门店名称不能为空"),
+	
 	UNKNOWN(-1,"系统异常...");
 
 	private Integer code;

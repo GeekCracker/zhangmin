@@ -2,6 +2,10 @@ package com.readbook.entity;
 
 import java.util.List;
 
+/**
+ * 角色实体类
+ * @author 张敏
+ */
 public class Role {
 
 	/**主键ID*/

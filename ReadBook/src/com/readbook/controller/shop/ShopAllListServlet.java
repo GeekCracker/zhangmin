@@ -1,8 +1,6 @@
-package com.readbook.controller.role;
+package com.readbook.controller.shop;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,24 +8,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSONObject;
-import com.readbook.entity.Role;
 import com.readbook.response.ResponseResult;
-import com.readbook.service.RoleService;
-import com.readbook.service.impl.RoleServiceImpl;
+import com.readbook.service.ShopService;
+import com.readbook.service.impl.ShopServiceImpl;
 
 /**
- * 获取所有的角色的Servlet
+ * 获取所有门店Servlet
  * @author 张敏
  */
-@WebServlet("/RoleAllListServlet")
-public class RoleAllListServlet extends HttpServlet {
-
+@WebServlet("/ShopAllListServlet")
+public class ShopAllListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	private RoleService roleService = new RoleServiceImpl();
+    
+	private ShopService shopService = new ShopServiceImpl();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Role> roles = roleService.queryAll();
-		response.getWriter().write(JSONObject.toJSONStringWithDateFormat(ResponseResult.ok(roles), "yyyy-MM-dd HH:mm:ss"));
+		response.getWriter().write(JSONObject.toJSONStringWithDateFormat(ResponseResult.ok(shopService.queryAll()), "yyyy-MM-dd HH:mm:ss"));
 	}
 }

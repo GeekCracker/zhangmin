@@ -7,7 +7,7 @@
 <!-- 引入外部样式表 -->
 <link rel="stylesheet" href="/layui/css/layui.css"><!-- layui.css layui框架的css样式表 -->
 <link rel="stylesheet" href="/css/main.css"><!-- main.css 我们自定义的公共样式表 -->
-<title>用户管理</title>
+<title>店铺管理</title>
 </head>
 <!-- 页面身体 -->
 <body class="layui-layout-body">
@@ -24,7 +24,7 @@
 					<span class="layui-breadcrumb"> 
 						<a href="/page/main.jsp">首页</a> 
 						<a><cite>基础配置</cite></a>
-						<a><cite>用户管理</cite></a>
+						<a><cite>店铺管理</cite></a>
 					</span>
 				</div>
 				<div class="layui-row layui-margin-top20">
@@ -33,18 +33,14 @@
 						<!-- 查询条件 -->
 						<div class="layui-row layui-col-space10 queryParam">
 							<div class="layui-col-md4 layui-col-lg2">
-								<input type="text" name="username" id="username" placeholder="请输入用户名称"
-									class="layui-input">
-							</div>
-							<div class="layui-col-md4 layui-col-lg2">
-								<input type="text" name="phone" id="phone" placeholder="请输入用户联系方式"
+								<input type="text" name="shopName" id="shopName" placeholder="请输入店铺名称"
 									class="layui-input">
 							</div>
 							<div class="layui-col-md3 layui-col-lg1">
 								<button type="button" class="layui-btn" data-type="reload" id="reload">查询</button>
 							</div>
 							<div class="layui-col-md2 layui-col-lg1 layui-layout-right">
-								<button type="button" class="layui-btn" data-type="save" id="save">添加用户</button>
+								<button type="button" class="layui-btn" data-type="save" id="save">添加门店</button>
 							</div>
 						</div>
 						<table class="layui-table" style="width:100%" id="table" lay-filter="table"></table>
@@ -56,28 +52,20 @@
 		<div id = "footer" class="layui-footer"></div>
 	</div>
 	<div id="info" class="layui-container layui-padding-20 layui-hide" style="width:90%;">
-		<form class="layui-form" id="userForm" lay-filter="userForm" action="">
+		<form class="layui-form" id="shopForm" lay-filter="shopForm" action="">
 			<div class="layui-form-item layui-row">
 				<div class="layui-col-sm6">
-					<label class="layui-form-label layui-col-md5" style="width:120px;">用户名称：</label>
+					<label class="layui-form-label layui-col-md5" style="width:120px;">店铺名称：</label>
 					<div class="layui-input-inline layui-col-sm7">
-						<input type="text" id="formUsername" name="username" required lay-verify="required"
-							placeholder="请输入用户名称" autocomplete="off" class="layui-input">
+						<input type="text" id="formShopName" name="shopName" required lay-verify="required"
+							placeholder="请输入店铺名称" autocomplete="off" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-col-sm6">
-					<label class="layui-form-label layui-col-md5" style="width:120px;">联系方式：</label>
+					<label class="layui-form-label layui-col-md5" style="width:120px;">请输入店铺地址：</label>
 					<div class="layui-input-inline layui-col-sm7">
-						<input type="text" id="formPhone" name="phone" required lay-verify="required"
-							placeholder="请输入用户联系方式" autocomplete="off" class="layui-input">
-					</div>
-				</div>
-				<div class="layui-col-sm6">
-					<label class="layui-form-label layui-col-sm5" style="width:120px;">请选择角色：</label>
-					<div class="layui-input-inline layui-col-sm7">
-						<select name="roleId" id="formRoleId">
-						  <option value="">请选择角色</option>
-						</select>
+						<input type="text" id="formAddress" name="address" required lay-verify="required"
+							placeholder="请输入店铺地址" autocomplete="off" class="layui-input">
 					</div>
 				</div>
 			</div>
@@ -96,7 +84,7 @@
 		$("#header").load("/base/header.html");
 		$("#left").load("/base/left.html");
 		$("#footer").load("/base/footer.html");
-		$("body").ready(function(){
+		$("body").ready(function(){	
 			layui.use('element', function() {
 				var element = layui.element;
 			});
@@ -107,7 +95,7 @@
 				table.render({
 					elem : '#table',
 					limit: 20,
-					url : '/UserListServlet',
+					url : '/ShopListServlet',
 					method : 'POST',
 					//cols 表头列
 					cols : [ [ 
@@ -118,21 +106,16 @@
 							fixed : 'left',
 							align : 'center'
 						} ,{
-							field : 'username',
+							field : 'shopName',
 							width : 200,
-							title : '用户名称',
+							title : '店铺名称',
 							align : 'center'
 						},{
-							field : 'phone',
+							field : 'address',
 							width : 200,
-							title : '联系方式',
+							title : '店铺地址',
 							align : 'center'
 						},{
-							field : 'roleName',
-							width : 200,
-							title : '角色',
-							align : 'center'
-						}, {
 							fixed: 'right', 
 							title:'操作', 
 							toolbar: '#tableBar',
@@ -148,28 +131,25 @@
 				    if(obj.event === 'del'){
 				      layer.confirm('真的删除当前行吗？', function(index){
 				        obj.del();
-				        doPost("/UserDeleteServlet",{id:obj.data.id},true);
+				        doPost("/ShopDeleteServlet",{id:obj.data.id},true);
 				        layer.close(index);
 				      });
 				    } else if(obj.event === 'edit'){
-				    	save('/UserEditServlet',true,obj);
-				    	initRole(obj.data.roleId);
+				    	save('/ShopEditServlet',true,obj);
 				    }
 			  	});
 				
 				//条件查询，并重新加载表格数据
 			  	active = {
 		  		    reload: function(){
-		  		    	var username = $('#username');
-		  		    	var phone = $('#phone');
+		  		    	var shopName = $('#shopName');
 		  		    	//执行重载
 		  		    	table.reload('table', {
 			  		      	page: {
 			  		          curr: 1 //重新从第 1 页开始
 			  		        }
 			  		        ,where: {
-			  		            username: username.val(),
-			  		            phone: phone.val()
+			  		            shopName: shopName.val()
 		  		        	}
   		     			}, 'data');
 	  		    	}
@@ -181,8 +161,7 @@
 	  		    			active[type] ? active[type].call(this) : '';
 	  		    			break;
 	  		    		case 'save':
-	  		    			initRole();
-	  		    			save('/UserAddServlet',false,false,function(){
+	  		    			save('/ShopAddServlet',false,false,function(){
 	  		    				active.reload();
 	  		    			});
 	  		    			break;
@@ -192,43 +171,32 @@
 		  		  	$('#info').removeClass("layui-hide");
 		  		  	if(edit){
 		  		  		//表单赋值
-		  		  		form.val('userForm',{
-		  		  			"username":obj.data.username,
-		  		  			"phone":obj.data.phone,
-		  		  			"roleId":obj.data.roleId
+		  		  		form.val('shopForm',{
+		  		  			"shopName":obj.data.shopName,
+		  		  			"address":obj.data.address
 		  		  		})
 		  		  	}
 			    	layer.open({
-		    		  title: edit?'修改用户':'添加用户', 
+		    		  title: edit?'修改门店':'添加门店', 
 		    		  type:1,
 		    		  area:['800px','600px'],
 		    		  content: $('#info'),
 		    		  btn:['保存','取消'],
 		    		  yes:function(index){
 		    			  var data = {
-		    					username:$('#formUsername').val(),
-		    					phone:$('#formPhone').val(),
-		    					roleId:$('#formRoleId').val()
+		    					shopName:$('#formShopName').val(),
+		    					address:$('#formAddress').val()
 		    			  }
 		    			  if(edit){
 		    				  data.id = obj.data.id;
- 		    				  //修改当前行的数据，避免重新刷新列表
- 		    				  if(obj.data.roleName){
- 		    					 obj.data.roleName = $('#formRoleId option:selected').text();
- 		    				  }else {
- 		    					 obj.data['roleName'] = $('#formRoleId option:selected').text();
- 		    				  }
- 		    				  //这里存在一个问题，暂时没有解决方案
- 		    				  //问题描述：当用户角色为空时，修改用户角色，不能动态修改表格单元格的数据
- 		    				  //				 需要重新刷新列表，但是如果用户有角色的话，修改用户角色会动态更新单元格数据
+ 		    				  //修改当前行的数据，避免重新刷新列表 		    				  
 		    				  obj.update(data);
 		    			  }
 		    			  doPost(url,data,true);
 		    			  $('#info').addClass("layui-hide");
-		    			  form.val('userForm',{
-			  		  			"username":'',
-			  		  			"phone":'',
-			  		  			"roleId":''
+		    			  form.val('shopForm',{
+			  		  			"shopName":'',
+			  		  			"address":''
 		  		  		  })
 		    			  if(func){
 		    				  func();
@@ -236,48 +204,22 @@
 		    			  layer.close(index);
 		    		  },
 		    		  btn2:function(index){
-		    			  form.val('userForm',{
-			  		  			"username":'',
-			  		  			"phone":'',
-			  		  			"roleId":''
+		    			  form.val('shopForm',{
+			  		  			"shopName":'',
+			  		  			"address":''
 		  		  		  })
 		    			  $('#info').addClass("layui-hide");
 		    			  layer.close(index);
 		    		  },
 		    		  cancel:function(index){
-		    			  form.val('userForm',{
-			  		  			"username":'',
-			  		  			"phone":'',
-			  		  			"roleId":''
+		    			  form.val('shopForm',{
+			  		  			"shopName":'',
+			  		  			"address":''
 		  		  		  })
 		    			  $('#info').addClass("layui-hide");
 		    		  }
 		    		});
 	  		  	}//end save function
-			  	/**
-			  	  * @param roleId是否为修改操作，如果传入角色ID说明是修改操作
-				  */
-			  	function initRole(roleId){
-			  		$.ajax({
-						url:'/RoleAllListServlet',
-						type:'GET',
-						async:false,
-						success:function(data){
-							var roles = [];
-							data = JSON.parse(data);
-							if(data.code == 200){
-								roles = data.data;
-							}
-							var str = "";
-							for(var i in roles){
-								str += '<option value = "'+roles[i].id +'" '+(roleId && roleId == roles[i].id ? "selected" : "")+'>'+roles[i].roleName+'</option>';
-							}
-							$("#userForm #formRoleId option:gt(0)").remove();
-							$("#userForm #formRoleId").append(str);
-							form.render('select');
-						}
-					});
-			  	}	//end initRole function
 			});
 		});
 	});

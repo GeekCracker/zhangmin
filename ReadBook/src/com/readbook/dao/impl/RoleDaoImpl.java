@@ -26,22 +26,22 @@ public class RoleDaoImpl implements RoleDao{
 
 	@Override
 	public void updateById(Role role) {
-		String sql = "update t_role set id = ? ";
+		StringBuilder sql = new StringBuilder("update t_role set id = ? ");
 		List<Object> args = new LinkedList<Object>();
 		args.add(role.getId());
 		String roleName = role.getRoleName();
 		if(roleName != null && !"".equals(roleName)){
-			sql += ",role_name = ?";
+			sql.append(",role_name = ?");
 			args.add(roleName);
 		}
 		Boolean enable = role.getEnable();
 		if(enable != null){
-			sql += ",enable = ?";
+			sql.append(",enable = ?");
 			args.add(enable);
 		}
-		sql += " where id = ?";
+		sql.append(" where id = ?");
 		args.add(role.getId());
-		JDBCUtils.doUpdate(sql, args.toArray());
+		JDBCUtils.doUpdate(sql.toString(), args.toArray());
 	}
 
 	@Override
