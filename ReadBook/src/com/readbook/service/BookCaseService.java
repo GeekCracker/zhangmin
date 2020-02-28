@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.readbook.entity.BookCase;
 import com.readbook.page.BookCasePage;
+import com.readbook.response.ResponseResult;
 
 /**
  * 书柜Service
@@ -43,7 +44,7 @@ public interface BookCaseService {
 	 * @param page 传入分页查询条件参数
 	 * @return 返回书柜分页数据
 	 */
-	List<BookCase> queryPageData(BookCasePage page);
+	ResponseResult queryPageData(BookCasePage page);
 	
 	/**
 	 * 根据条件查询数据列表

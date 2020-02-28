@@ -50,7 +50,7 @@ public class BookCaseDaoImpl implements BookCaseDao {
 
 	@Override
 	public BookCase selectById(Long id) {
-		String sql = "select id,number,shop_id as shopId,shop_name as shopName from v_shop where id = ?;";
+		String sql = "select id,number,shop_id as shopId,shop_name as shopName from v_book_case where id = ?;";
 		List<Map<String,Object>> results = JDBCUtils.doQuery(sql, id);
 		if(results != null && !results.isEmpty()){
 			return BeanUtil.populate(results.get(0), BookCase.class);

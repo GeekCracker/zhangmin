@@ -13,6 +13,10 @@ public enum CodeMessage {
 	
 	SHOP_NAME_BLANK(20001,"门店名称不能为空"),
 	
+	BOOK_CASE_NUMBER_BLANK(30001,"书柜编号不能为空"),
+	
+	BOOK_NAME_BLANK(40001,"书籍名称不能为空"),
+	
 	UNKNOWN(-1,"系统异常...");
 
 	private Integer code;
