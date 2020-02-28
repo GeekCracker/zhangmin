@@ -34,12 +34,13 @@ public class BookCaseEditServlet extends HttpServlet {
 			response.getWriter().write(JSONObject.toJSONString(ResponseResult.build(CodeMessage.BOOK_CASE_NUMBER_BLANK)));
 		}
 		BookCase bookCase = new BookCase();
+		bookCase.setId(Long.valueOf(id));
 		bookCase.setNumber(number);
 		String shopId = request.getParameter("shopId");
 		if(shopId != null && !"".equals(shopId.trim())){
 			bookCase.setShopId(Long.valueOf(shopId));
 		}
-		bookCaseService.save(bookCase);
+		bookCaseService.updateById(bookCase);
 		response.getWriter().write(JSONObject.toJSONString(ResponseResult.ok()));
 	}
 

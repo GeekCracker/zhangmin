@@ -52,8 +52,13 @@ public class BookCaseServiceImpl implements BookCaseService{
 		List<Object> args = new LinkedList<Object>();
 		String number = page.getNumber();
 		if(number != null && !"".equals(number.trim())){
-			whereSQL.append(" and number = ? ");
-			args.add(number);
+			whereSQL.append(" and number like ? ");
+			args.add(number+"%");
+		}
+		Long shopId = page.getShopId();
+		if(shopId != null && shopId > 0){
+			whereSQL.append(" and shop_id = ? ");
+			args.add(shopId);
 		}
 		//×é×°limit
 		String limit = " limit " + page.getStartIndex() + "," + page.getLimit();
@@ -69,8 +74,16 @@ public class BookCaseServiceImpl implements BookCaseService{
 		StringBuilder sql = new  StringBuilder();
 		sql.append("select ");
 		sql.append(selectFields());
-		sql.append(" from t_book_case where 1=1 ");
-		return null;
+		sql.append(" from v_book_case where 1=1 ");
+		
+		List<Object> args = new LinkedList<Object>();
+		if(param != null){
+			if(param.containsKey("shopId")){
+				sql.append(" and shop_id = ? ");
+				args.add(param.get("shopId"));
+			}
+		}
+		return bookCaseDao.selectData(sql.toString(),args.toArray());
 	}
 	
 	private String selectFields(){

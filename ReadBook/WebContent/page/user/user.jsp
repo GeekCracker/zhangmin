@@ -214,9 +214,9 @@
 		    				  data.id = obj.data.id;
  		    				  //修改当前行的数据，避免重新刷新列表
  		    				  if(obj.data.roleName){
- 		    					 obj.data.roleName = $('#formRoleId option:selected').text();
+ 		    					 data.roleName = $('#formRoleId option:selected').text();
  		    				  }else {
- 		    					 obj.data['roleName'] = $('#formRoleId option:selected').text();
+ 		    					 data['roleName'] = $('#formRoleId option:selected').text();
  		    				  }
  		    				  //这里存在一个问题，暂时没有解决方案
  		    				  //问题描述：当用户角色为空时，修改用户角色，不能动态修改表格单元格的数据
