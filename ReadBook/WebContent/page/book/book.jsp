@@ -206,8 +206,9 @@
 				        layer.close(index);
 				      });
 				    } else if(obj.event === 'edit'){
-				    	save('/BookEditServlet',true,obj);
 				    	initShop(obj.data.shopId);
+				    	initBookCase(obj.data.shopId);
+				    	save('/BookEditServlet',true,obj);
 				    }
 			  	});
 			  	//条件查询，并重新加载表格数据
@@ -250,9 +251,13 @@
 		  		  	$('#info').removeClass("layui-hide");
 		  		  	if(edit){
 		  		  		//表单赋值
-		  		  		form.val('bookCaseForm',{
+		  		  		form.val('bookForm',{
 		  		  			"number":obj.data.number,
-		  		  			"shopId":obj.data.shopId
+		  		  			"bookName":obj.data.bookName,
+		  		  			"author":obj.data.author,
+		  		  			"price":obj.data.price,
+		  		  			"shopId":obj.data.shopId,
+		  		  			"bookCaseId":obj.data.bookCaseId
 		  		  		})
 		  		  	}
 			    	layer.open({
