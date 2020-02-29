@@ -10,8 +10,14 @@ public class Book {
 	/**µÍ∆ÃID*/
 	private Long shopId;
 	
+	/**µÍ∆Ã√˚≥∆*/
+	private String shopName;
+	
 	/** ÈπÒID*/
 	private Long bookCaseId;
+	
+	/** ÈπÒ±‡∫≈*/
+	private String bookCaseNumber;
 	
 	/** ÈºÆ√˚≥∆*/
 	private String bookName;
@@ -40,6 +46,14 @@ public class Book {
 	public void setShopId(Long shopId) {
 		this.shopId = shopId;
 	}
+	
+	public String getShopName() {
+		return shopName;
+	}
+
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
 
 	public Long getBookCaseId() {
 		return bookCaseId;
@@ -47,6 +61,14 @@ public class Book {
 
 	public void setBookCaseId(Long bookCaseId) {
 		this.bookCaseId = bookCaseId;
+	}
+
+	public String getBookCaseNumber() {
+		return bookCaseNumber;
+	}
+
+	public void setBookCaseNumber(String bookCaseNumber) {
+		this.bookCaseNumber = bookCaseNumber;
 	}
 
 	public String getBookName() {

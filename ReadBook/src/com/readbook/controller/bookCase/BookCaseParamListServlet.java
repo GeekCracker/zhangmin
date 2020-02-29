@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSONObject;
+import com.readbook.response.ResponseResult;
 import com.readbook.service.BookCaseService;
 import com.readbook.service.impl.BookCaseServiceImpl;
 
@@ -31,7 +32,6 @@ public class BookCaseParamListServlet extends HttpServlet {
 		if(shopId != null && !"".equals(shopId.trim())){
 			param.put("shopId",Long.valueOf(shopId));
 		}
-		response.getWriter().write(JSONObject.toJSONStringWithDateFormat(bookCaseService.queryData(param), "yyyy-MM-dd HH:mm:ss"));
+		response.getWriter().write(JSONObject.toJSONStringWithDateFormat(ResponseResult.ok(bookCaseService.queryData(param)), "yyyy-MM-dd HH:mm:ss"));
 	}
-
 }

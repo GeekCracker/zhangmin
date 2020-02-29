@@ -35,6 +35,10 @@
 								<input type="text" name="number" id="number" placeholder="请输入书籍编号"
 									class="layui-input">
 							</div>
+							<div class="layui-col-md4 layui-col-lg2">
+								<input type="text" name="bookName" id="bookName" placeholder="请输入书籍名称"
+									class="layui-input">
+							</div>
 							<div class="layui-col-md4 layui-col-lg2">						
 								<select name="shopId" id="shopId" class="layui-input" lay-filter="shopId">
 									<option value="">请选择店铺</option>
@@ -71,9 +75,30 @@
 					</div>
 				</div>
 				<div class="layui-col-sm6">
+					<label class="layui-form-label layui-col-md5" style="width:120px;">书籍名称：</label>
+					<div class="layui-input-inline layui-col-sm7">
+						<input type="text" id="formBookName" name="bookName" required lay-verify="required"
+							placeholder="请输入书籍名称" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-col-sm6">
+					<label class="layui-form-label layui-col-md5" style="width:120px;">书籍作者：</label>
+					<div class="layui-input-inline layui-col-sm7">
+						<input type="text" id="formAuthor" name="author" required lay-verify="required"
+							placeholder="请输入书籍作者" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-col-sm6">
+					<label class="layui-form-label layui-col-md5" style="width:120px;">书籍单价：</label>
+					<div class="layui-input-inline layui-col-sm7">
+						<input type="number" id="formPrice" name="price" required lay-verify="required"
+							placeholder="请输入单价(人民币/元)" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-col-sm6">
 					<label class="layui-form-label layui-col-md5" style="width:120px;">所属店铺：</label>
 					<div class="layui-input-inline layui-col-sm7">
-						<select name="shopId" id="formShopId">
+						<select name="shopId" id="formShopId" lay-filter="formShopId">
 						  <option value="">请选择店铺</option>
 						</select>
 					</div>
@@ -113,7 +138,7 @@
 				table.render({
 					elem : '#table',
 					limit: 20,
-					url : '/BookCaseListServlet',
+					url : '/BookListServlet',
 					method : 'POST',
 					//cols 表头列
 					cols : [ [ 
@@ -123,10 +148,25 @@
 							title : '序号',
 							fixed : 'left',
 							align : 'center'
-						} ,{
+						},{
 							field : 'number',
 							width : 200,
 							title : '书籍编号',
+							align : 'center'
+						},{
+							field : 'bookName',
+							width : 200,
+							title : '书籍名称',
+							align : 'center'
+						},{
+							field : 'author',
+							width : 200,
+							title : '书籍作者',
+							align : 'center'
+						},{
+							field : 'price',
+							width : 200,
+							title : '书籍单价(人民币/元)',
 							align : 'center'
 						},{
 							field : 'shopName',
@@ -151,20 +191,22 @@
 				initQueryShop();
 				initQueryBookCase();
 				form.on('select(shopId)', function(data){
-				  console.log(data.value); //得到被选中的值
 				  initQueryBookCase(data.value);
-				}); 	
+				});
+				form.on('select(formShopId)', function(data){
+				  initBookCase(data.value);
+				});	
 				//监听行工具事件
 			  	table.on('tool(table)', function(obj){
 				    var data = obj.data;
 				    if(obj.event === 'del'){
 				      layer.confirm('真的删除当前行吗？', function(index){
 				        obj.del();
-				        doPost("/BookCaseDeleteServlet",{id:obj.data.id},true);
+				        doPost("/BookDeleteServlet",{id:obj.data.id},true);
 				        layer.close(index);
 				      });
 				    } else if(obj.event === 'edit'){
-				    	save('/BookCaseEditServlet',true,obj);
+				    	save('/BookEditServlet',true,obj);
 				    	initShop(obj.data.shopId);
 				    }
 			  	});
@@ -172,7 +214,9 @@
 			  	active = {
 		  		    reload: function(){
 		  		    	var number = $('#number');
+		  		    	var bookName = $('#bookName');
 		  		    	var shopId = $('#shopId');
+		  		    	var bookCaseId = $('#bookCaseId');
 		  		    	//执行重载
 		  		    	table.reload('table', {
 			  		      	page: {
@@ -180,7 +224,9 @@
 			  		        }
 			  		        ,where: {
 			  		        	number: number.val(),
-			  		            shopId: shopId.val()
+			  		        	bookName: bookName.val(),
+			  		            shopId: shopId.val(),
+			  		            bookCaseId: bookCaseId.val()
 		  		        	}
   		     			}, 'data');
 	  		    	}
@@ -193,7 +239,8 @@
 	  		    			break;
 	  		    		case 'save':
 	  		    			initShop();
-	  		    			save('/BookCaseAddServlet',false,false,function(){
+	  		    			initBookCase();
+	  		    			save('/BookAddServlet',false,false,function(){
 	  		    				active.reload();
 	  		    			});
 	  		    			break;
@@ -217,7 +264,11 @@
 		    		  yes:function(index){
 		    			  var data = {
 	    					  number:$('#formNumber').val(),
-	    					  shopId:$('#formShopId').val()
+	    					  bookName:$('#formBookName').val(),
+	    					  author:$('#formAuthor').val(),
+	    					  price:$('#formPrice').val(),
+	    					  shopId:$('#formShopId').val(),
+	    					  bookCaseId:$('#formBookCaseId').val()
 		    			  }
 		    			  if(edit){
 		    				  data.id = obj.data.id;
@@ -272,12 +323,35 @@
 							for(var i in shops){
 								str += '<option value = "'+shops[i].id +'" '+(shopId && shopId == shops[i].id ? "selected" : "")+'>'+shops[i].shopName+'</option>';
 							}
-							$("#bookCaseForm #formShopId option:gt(0)").remove();
-							$("#bookCaseForm #formShopId").append(str);
+							$("#bookForm #formShopId option:gt(0)").remove();
+							$("#bookForm #formShopId").append(str);
 							form.render('select');
 						}
 					});
 	  		  	}//end initShop function
+	  			//初始化书柜下拉选择框
+	  		  	function initBookCase(shopId){
+		  		  	$.ajax({
+						url:'/BookCaseParamListServlet',
+						type:'GET',
+						data:{shopId:shopId},
+						async:false,
+						success:function(data){
+							var bookCases = [];
+							data = JSON.parse(data);
+							if(data.code == 200){
+								bookCases = data.data;
+							}
+							var str = "";
+							for(var i in bookCases){
+								str += '<option value = "'+bookCases[i].id +'">'+bookCases[i].number+'</option>';
+							}
+							$("#formBookCaseId option:gt(0)").remove();
+							$("#formBookCaseId").append(str);
+							form.render('select');
+						}
+					});
+	  		  	}
 	  			//初始化店铺下拉选择框
 	  		  	function initQueryShop(){
 					$.ajax({
@@ -313,7 +387,6 @@
 							if(data.code == 200){
 								bookCases = data.data;
 							}
-							console.log(bookCases);
 							var str = "";
 							for(var i in bookCases){
 								str += '<option value = "'+bookCases[i].id +'">'+bookCases[i].number+'</option>';

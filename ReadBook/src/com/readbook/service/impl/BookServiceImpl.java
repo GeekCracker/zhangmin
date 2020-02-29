@@ -83,6 +83,6 @@ public class BookServiceImpl implements BookService{
 	}
 	
 	private String selectFields(){
-		return "id,shop_id,book_case_id,book_name,number,author,price";
+		return "id,shop_id as shopId,shop_name as shopName,book_case_id as bookCaseId,book_case_number as bookCaseNumber,book_name as bookName,number,author,price";
 	}
 }

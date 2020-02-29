@@ -32,6 +32,7 @@ public class BookAddServlet extends HttpServlet {
 			response.getWriter().write(JSONObject.toJSONString(ResponseResult.build(CodeMessage.BOOK_NAME_BLANK)));
 		}
 		Book book = new Book();
+		book.setBookName(bookName);
 		String shopId = request.getParameter("shopId");
 		if(shopId != null && !"".equals(shopId.trim())){
 			book.setShopId(Long.valueOf(shopId));

@@ -18,7 +18,7 @@ public class BookDaoImpl implements BookDao{
 
 	@Override
 	public Long save(Book book) {
-		String sql = "insert into t_book(number,book_name,author,shop_id,book_case_id,price) value(?,?,?,?,?);";
+		String sql = "insert into t_book(number,book_name,author,shop_id,book_case_id,price) value(?,?,?,?,?,?);";
 		return JDBCUtils.doSave(sql,book.getNumber(),book.getBookName(),book.getAuthor(),book.getShopId(),book.getBookCaseId(),book.getPrice());
 	}
 
