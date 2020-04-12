@@ -65,8 +65,8 @@ public class BookServiceImpl implements BookService{
 		}
 		String bookName = page.getBookName();
 		if(bookName != null && !"".equals(bookName.trim())){
-			whereSQL.append(" and book_name = ? ");
-			args.add(bookName);
+			whereSQL.append(" and book_name like ? ");
+			args.add("%"+bookName+"%");
 		}
 		String author = page.getAuthor();
 		if(author != null && !"".equals(author.trim())){

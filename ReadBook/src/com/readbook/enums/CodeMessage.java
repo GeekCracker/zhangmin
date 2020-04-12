@@ -17,6 +17,8 @@ public enum CodeMessage {
 	
 	BOOK_NAME_BLANK(40001,"书籍名称不能为空"),
 	
+	BULID(-2,""),
+	
 	UNKNOWN(-1,"系统异常...");
 
 	private Integer code;

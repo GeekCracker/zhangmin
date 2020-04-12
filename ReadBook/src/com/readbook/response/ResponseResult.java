@@ -20,7 +20,10 @@ public class ResponseResult {
 	/**返回给前台页面的数据对象，可以是单条数据，也可以是列表数据*/
 	private Object data;
 
-	
+	public ResponseResult() {
+		super();
+	}
+
 	public ResponseResult(Integer code,String msg){
 		this.code = code;
 		this.msg = msg;
